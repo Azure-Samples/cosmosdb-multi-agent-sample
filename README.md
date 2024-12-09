@@ -3,9 +3,9 @@
 A sample personal shopping AI Chatbot that can help with product enquiries, making sales, and refunding orders by transferring to different agents for those tasks.
 
 Features:
-- **Multi-agent**: [OpenAI Swarm](https://github.com/openai/swarm) to orchestrate multi-agent interactions.
+- **Multi-agent**: [OpenAI Swarm](https://github.com/openai/swarm) to orchestrate multi-agent interactions with [Azure OpenAI](https://learn.microsoft.com/azure/ai-services/openai/overview) API calls.
 - **Transactional data management**: planet scale [Azure Cosmos DB database service](https://learn.microsoft.com/azure/cosmos-db/introduction) to store transactional user and product operational data.
-- **Retrieval Augmented Generation (RAG)**: [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) in Azure Cosmos DB with powerful DiskANN index to serve product enquiries from the same database.
+- **Retrieval Augmented Generation (RAG)**: [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) in Azure Cosmos DB with powerful [DiskANN index](https://www.microsoft.com/en-us/research/publication/diskann-fast-accurate-billion-point-nearest-neighbor-search-on-a-single-node/?msockid=091c323873cd6bd6392120ac72e46a98) to serve product enquiries from the same database.
 - **Gradio UI**: [Gradio](https://www.gradio.app/) to provide a simple UI ChatBot for the end-user.
 
 ## Backend agent activity
@@ -29,7 +29,20 @@ The personal shopper example includes four main agents to handle various custome
 2. **Refund Agent**: Manages customer refunds, requiring both user ID and item ID to initiate a refund.
 3. **Sales Agent**: Handles actions related to placing orders, requiring both user ID and product ID to complete a purchase.
 
+## Prerequisites
+
+- [Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/create-cosmosdb-resources-portal) with a database and containers for products and users, and [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) enabled.
+- [Azure OpenAI API key](https://learn.microsoft.com/azure/ai-services/openai/overview) and endpoint.
+- [Azure OpenAI Embedding Deployment ID](https://learn.microsoft.com/azure/ai-services/openai/overview) for the RAG model.
+
 ## Setup
+
+Clone the repository:
+
+```shell
+git clone https://github.com/Azure-Samples/cosmosdb-multi-agent-swarm
+cd cosmosdb-multi-agent-swarm
+```
 
 Install dependencies:
 
@@ -45,6 +58,7 @@ AZURE_COSMOSDB_ENDPOINT=your_cosmosdb_account_uri
 AZURE_COSMOSDB_KEY=your_cosmosdb_account_key
 AZURE_OPENAI_API_KEY=your_azure_openai_api_key
 AZURE_OPENAI_ENDPOINT=your_azure_openai_endpoint
+AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=your_azure_openai_embeddingdeploymentid
 ```
 
 Once you have installed dependencies, run below and click on url provided in output:

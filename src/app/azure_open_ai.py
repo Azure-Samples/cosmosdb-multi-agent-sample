@@ -10,7 +10,7 @@ aoai_client = AzureOpenAI(
 )
 
 def generate_embedding(text):
-    response = aoai_client.embeddings.create(input=text, model="text-embedding-ada-002")
+    response = aoai_client.embeddings.create(input=text, model=os.getenv("AZURE_OPENAI_EMBEDDINGDEPLOYMENTID"))
     json_response = response.model_dump_json(indent=2)
     parsed_response = json.loads(json_response)
     return parsed_response['data'][0]['embedding']
