@@ -1,57 +1,75 @@
-# Project Name
+# Multi-agent AI sample with Azure Cosmos DB
 
-(short, 1-3 sentenced, description of the project)
+A sample personal shopping AI Chatbot that can help with product enquiries, making sales, and refunding orders by transferring to different agents for those tasks.
 
-## Features
+Features:
+- **Multi-agent**: [OpenAI Swarm](https://github.com/openai/swarm) to orchestrate multi-agent interactions with [Azure OpenAI](https://learn.microsoft.com/azure/ai-services/openai/overview) API calls.
+- **Transactional data management**: planet scale [Azure Cosmos DB database service](https://learn.microsoft.com/azure/cosmos-db/introduction) to store transactional user and product operational data.
+- **Retrieval Augmented Generation (RAG)**: [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) in Azure Cosmos DB with powerful [DiskANN index](https://www.microsoft.com/en-us/research/publication/diskann-fast-accurate-billion-point-nearest-neighbor-search-on-a-single-node/?msockid=091c323873cd6bd6392120ac72e46a98) to serve product enquiries from the same database.
+- **Gradio UI**: [Gradio](https://www.gradio.app/) to provide a simple UI ChatBot for the end-user.
 
-This project framework provides the following features:
+## Backend agent activity
 
-* Feature 1
-* Feature 2
-* ...
+Run the CLI interactive session to see the agent handoffs in action...
 
-## Getting Started
+![Demo](./media/demo-cli.gif)
 
-### Prerequisites
+## Front-end AI chat bot
 
-(ideally very short, if any)
+Run the AI chat bot for the end-user experience...
 
-- OS
-- Library version
-- ...
+![Demo](./media/demo-chatbot.gif)
 
-### Installation
+## Overview
 
-(ideally very short)
+The personal shopper example includes four main agents to handle various customer service requests:
 
-- npm install [package name]
-- mvn install
-- ...
+1. **Triage Agent**: Determines the type of request and transfers to the appropriate agent.
+2. **Product Agent**: Answers customer queries from the products container using [Retrieval Augmented Generation (RAG)](https://learn.microsoft.com/azure/cosmos-db/gen-ai/rag).
+2. **Refund Agent**: Manages customer refunds, requiring both user ID and item ID to initiate a refund.
+3. **Sales Agent**: Handles actions related to placing orders, requiring both user ID and product ID to complete a purchase.
 
-### Quickstart
-(Add steps to get up and running quickly)
+## Prerequisites
 
-1. git clone [repository clone url]
-2. cd [repository name]
-3. ...
+- [Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/create-cosmosdb-resources-portal) with a database and containers for products and users, and [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) enabled.
+- [Azure OpenAI API key](https://learn.microsoft.com/azure/ai-services/openai/overview) and endpoint.
+- [Azure OpenAI Embedding Deployment ID](https://learn.microsoft.com/azure/ai-services/openai/overview) for the RAG model.
 
+## Setup
 
-## Demo
+Clone the repository:
 
-A demo app is included to show how to use the project.
+```shell
+git clone https://github.com/Azure-Samples/cosmosdb-multi-agent-swarm
+cd cosmosdb-multi-agent-swarm
+```
 
-To run the demo, follow these steps:
+Install dependencies:
 
-(Add steps to start up the demo)
+```shell
+pip install git+https://github.com/openai/swarm.git
+pip install azure-cosmos==4.9.0
+pip install gradio
+```
 
-1.
-2.
-3.
+Ensure you have the following environment variables set:
+```shell
+AZURE_COSMOSDB_ENDPOINT=your_cosmosdb_account_uri
+AZURE_COSMOSDB_KEY=your_cosmosdb_account_key
+AZURE_OPENAI_API_KEY=your_azure_openai_api_key
+AZURE_OPENAI_ENDPOINT=your_azure_openai_endpoint
+AZURE_OPENAI_EMBEDDINGDEPLOYMENTID=your_azure_openai_embeddingdeploymentid
+```
 
-## Resources
+Once you have installed dependencies, run below and click on url provided in output:
 
-(Any additional resources or related projects)
+```shell
+python3 src/app/ai_chat_bot.py
+```
 
-- Link to supporting information
-- Link to similar sample
-- ...
+To see the agent handoffs, you can also run as an interactive Swarm CLI session using:
+    
+```shell
+python3 src/app/multi_agent_service.py
+```
+
