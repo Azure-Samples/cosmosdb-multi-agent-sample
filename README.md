@@ -31,7 +31,7 @@ The personal shopper example includes four main agents to handle various custome
 
 ## Prerequisites
 
-- [Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/create-cosmosdb-resources-portal) with a database and containers for products and users, and [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) enabled.
+- [Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/create-cosmosdb-resources-portal) - ensure the [vector search](https://learn.microsoft.com/azure/cosmos-db/nosql/vector-search) feature is enabled.
 - [Azure OpenAI API key](https://learn.microsoft.com/azure/ai-services/openai/overview) and endpoint.
 - [Azure OpenAI Embedding Deployment ID](https://learn.microsoft.com/azure/ai-services/openai/overview) for the RAG model.
 
